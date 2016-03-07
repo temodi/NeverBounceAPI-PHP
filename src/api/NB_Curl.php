@@ -59,11 +59,15 @@ trait NB_Curl
             $this->json = false;
 
         // Start request
-        $this->curl = curl_init(sprintf($this->apiBase, NB_Auth::auth()->router(), NB_Auth::auth()->version()) . $endpoint);
+        $this->curl = curl_init(sprintf($this->apiBase, NB_Auth::auth()->router(), 'v3') . $endpoint);
 
         if ($this->debug) {
             $this->set_opt(CURLOPT_VERBOSE, true);
         } // Debug mode
+
+        if (NB_Auth::auth()->version()) {
+            $data['version'] = NB_Auth::auth()->version();
+        }
 
         $this->set_opt(CURLOPT_SSL_VERIFYPEER, false);
         $this->set_opt(CURLOPT_HEADER, false);
