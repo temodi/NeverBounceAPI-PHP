@@ -61,7 +61,7 @@ class NB_Job {
         if (property_exists($job, 'cache_token')) {
             $this->cache_token = (string)$job->cache_token;
         }
-            
+
         if (property_exists($job, 'purchased')) {
             $this->purchased = (bool)$job->purchased;
         }
@@ -81,6 +81,10 @@ class NB_Job {
         $this->catchall = (integer)$job->stats->catchall;
         $this->disposable = (integer)$job->stats->disposable;
         $this->unknown = (integer)$job->stats->unknown;
+
+        if (property_exists($job, 'job_details')) {
+            $this->job_details = $job->job_details;
+        }
 
         return $this;
     }
